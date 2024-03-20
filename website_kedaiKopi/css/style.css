@@ -359,7 +359,7 @@ body {
 /* Product section */
 .products .row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 1.5rem;
   margin-top: 4rem;
 }
@@ -399,7 +399,7 @@ body {
 }
 
 .products .product-image img {
-  height: 25rem;
+  height: 20rem;
   border-radius: 0.5rem;
 }
 
@@ -420,12 +420,6 @@ body {
 .products .product-price {
   font-size: 1.3rem;
   font-weight: 700;
-}
-
-.products .product-price span {
-  text-decoration: line-through;
-  font-weight: 300;
-  font-size: 1rem;
 }
 
 /* contact section */
