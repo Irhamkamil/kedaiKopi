@@ -55,30 +55,28 @@
       <!-- search form end -->
       <!-- shopping cart start -->
       <div class="shopping-cart">
-        <div class="cart-item">
-          <img src="img/products/1.jpg" alt="product 1" />
-          <div class="item-detail">
-            <h3>Coffe Beans</h3>
-            <p class="item-price">IDR 30K</p>
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+            <img :src="`img/products/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <p class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">
+                  &minus;
+                </button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>
+                &equals;
+                <span x-text="rupiah(item.total)"></span>
+              </p>
+            </div>
           </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
-        <div class="cart-item">
-          <img src="img/products/1.jpg" alt="product 1" />
-          <div class="item-detail">
-            <h3>Coffe Beans</h3>
-            <p class="item-price">IDR 30K</p>
-          </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
-        <div class="cart-item">
-          <img src="img/products/1.jpg" alt="product 1" />
-          <div class="item-detail">
-            <h3>Coffe Beans</h3>
-            <p class="item-price">IDR 30K</p>
-          </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length">Cart Is Empty</h4>
+        <h4 x-show="$store.cart.items.length">
+          Total : <span x-text="rupiah($store.cart.total)"></span>
+        </h4>
       </div>
       <!-- shopping cart end -->
     </nav>
