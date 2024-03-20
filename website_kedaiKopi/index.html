@@ -77,6 +77,31 @@
         <h4 x-show="$store.cart.items.length">
           Total : <span x-text="rupiah($store.cart.total)"></span>
         </h4>
+        <div class="form-container">
+          <form action="" id="checkoutForm" x-show="$store.cart.items.length">
+            <h5>Customer Detail</h5>
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" />
+            </label>
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+            <button
+              class="checkout-button"
+              type="submit"
+              id="checkout-button"
+              value="checkout"
+            >
+              checkout
+            </button>
+          </form>
+        </div>
       </div>
       <!-- shopping cart end -->
     </nav>
