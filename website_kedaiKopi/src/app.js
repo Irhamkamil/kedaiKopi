@@ -88,29 +88,42 @@ form.addEventListener("keyup", (e) => {
 });
 
 // kirim data ketika tombol checkout di klik
-checkoutButton.addEventListener("click", function (e) {
+checkoutButton.addEventListener("click", async function (e) {
   e.preventDefault();
   const formData = new FormData(form);
   const data = new URLSearchParams(formData);
   const objData = Object.fromEntries(data);
-  const message = formatMessage(objData);
-  window.open("http://wa.me/6282126544124?text=" + encodeURIComponent(message));
+  // const message = formatMessage(objData);
+  // window.open("http://wa.me/6282126544124?text=" + encodeURIComponent(message));
+
+  // minta token menggunakan fetch/ajax
+  try {
+    const response = await fetch("php/placeOrder.php", {
+      method: "POST",
+      body: data
+    });
+    const token = await response.text();
+    console.log(token);
+    window.snap.pay(token);
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 // format pesan whatsapp
-const formatMessage = (obj) => {
-  return `Data Costumer
-Nama: ${obj.name}
-Email: ${obj.email}
-No.Hp: ${obj.phone}
+// const formatMessage = (obj) => {
+//   return `Data Costumer
+// Nama: ${obj.name}
+// Email: ${obj.email}
+// No.Hp: ${obj.phone}
 
-Data Pesanan:
-${JSON.parse(obj.items).map(
-  (item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n`
-)} 
-Total: ${rupiah(obj.total)}
-Terima Kasih.`;
-};
+// Data Pesanan:
+// ${JSON.parse(obj.items).map(
+//   (item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n`
+// )}
+// Total: ${rupiah(obj.total)}
+// Terima Kasih.`;
+// };
 
 // konversi rupiah
 const rupiah = (number) => {
